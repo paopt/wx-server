@@ -1,12 +1,22 @@
 const Koa = require('koa');
-var Router = require('koa-router');
+const Router = require('koa-router');
+
+const config = require('../config');
+const { sha1 } = require('./util')
+
 
 var app = new Koa();
 var router = new Router();
 
 router.get('/wx', (ctx, next) => {
-  console.log('xx', ctx.query);
-  ctx.body = 'hello'
+  console.log('微信公众号域名验证：', ctx.query);
+  const {signature, echostr, timestamp, nonce} = ctx.query;
+  const arr = [config.token, timestamp, nonce];
+  const res = sha1(arr.sort().join(''));
+  console.log('签名：', res)
+  if (res === signature) {
+    ctx.body = echostr
+  }
 });
 
 app
