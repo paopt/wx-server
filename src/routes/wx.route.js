@@ -1,6 +1,9 @@
 const Router = require('koa-router');
 
-const router = new Router({prefix: 'wx'});
+const { sha1 } = require('../util');
+const config = require('../../config');
+
+const router = new Router({prefix: '/wx'});
 
 router.get('/verify', (ctx, next) => {
   console.log('微信公众号域名验证：', ctx.query);

@@ -6,6 +6,7 @@ const wxRouter = require('./routes/wx.route');
 const apiRouter = require('./routes/api.route');
 
 const app = new Koa();
+
 app.use(logger());
 app.use(koaBody());
 app.use(wxRouter.routes());
