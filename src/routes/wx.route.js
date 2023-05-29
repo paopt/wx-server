@@ -1,7 +1,10 @@
 const Router = require('koa-router');
+const axios = require('axios');
 
 const { sha1 } = require('../util');
 const config = require('../../config');
+const wx = require('../model/wx.model');
+
 
 const router = new Router({prefix: '/wx'});
 
@@ -15,6 +18,22 @@ router.get('/verify', (ctx, next) => {
     ctx.body = echostr
   } else {
     ctx.body = 'err';
+  }
+});
+
+router.get('/accesstoken', async (ctx, next) => {
+  const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appID}&secret=${config.appsecret}`;
+  try {
+    const res = await axios.post('http://www.yaojinfeng.work/api', {
+        url,
+        method: 'get'
+    });
+    ctx.body = res.data;
+  } catch (error) {
+    ctx.body = {
+      code: 0,
+      msg: error.message
+    }
   }
 });
 

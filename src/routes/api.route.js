@@ -12,7 +12,7 @@ router.post('/api', async (ctx, next) => {
     const res = await axios({
       url, method, params, data, headers
     });
-    ctx.body = res;
+    ctx.body = res.data;
   } catch (error) {
     ctx.body = error
   }
