@@ -24,6 +24,7 @@ router.get('/wx', (ctx, next) => {
 
 router.post('/wx', (ctx, next) => {
   console.log(ctx.request.body)
+  ctx.body = ctx.request.body
 })
 
 router.get('/accesstoken', async (ctx, next) => {
