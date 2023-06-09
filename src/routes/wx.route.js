@@ -3,12 +3,11 @@ const axios = require('axios');
 
 const { sha1 } = require('../util');
 const config = require('../../config');
-const wx = require('../model/wx.model');
+const { queryAccessToken } = require('../service/wx.service');
 
+const router = new Router();
 
-const router = new Router({prefix: '/wx'});
-
-router.get('/verify', (ctx, next) => {
+router.get('/wx', (ctx, next) => {
   console.log('微信公众号域名验证：', ctx.query);
   const {signature, echostr, timestamp, nonce} = ctx.query;
   const arr = [config.token, timestamp, nonce];
@@ -22,17 +21,19 @@ router.get('/verify', (ctx, next) => {
 });
 
 router.get('/accesstoken', async (ctx, next) => {
-  const url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${config.appID}&secret=${config.appsecret}`;
   try {
-    const res = await axios.post('http://www.yaojinfeng.work/api', {
-        url,
-        method: 'get'
-    });
-    ctx.body = res.data;
+    const token = await queryAccessToken();
+    ctx.body = {
+      code: 200,
+      data: {
+        token
+      }
+    }
   } catch (error) {
     ctx.body = {
-      code: 0,
-      msg: error.message
+      code: 1001,
+      msg: '获取失败',
+      data: null
     }
   }
 });

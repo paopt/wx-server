@@ -6,7 +6,6 @@ const router = new Router();
 // 通过云服务器进行代理转发
 router.post('/api', async (ctx, next) => {
   const { url, method, params, data, headers } = ctx.request.body;
-  console.log(url, method, params, data, headers);
 
   try {
     const res = await axios({
