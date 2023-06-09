@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const axios = require('axios');
 
 const { sha1 } = require('../util');
-const config = require('../../config');
+const config = require('../../config/config.test');
 const { queryAccessToken } = require('../service/wx.service');
 
 const router = new Router();
@@ -18,7 +18,13 @@ router.get('/wx', (ctx, next) => {
   } else {
     ctx.body = 'err';
   }
+
+  console.log(ctx)
 });
+
+router.post('/wx', (ctx, next) => {
+  console.log(ctx.request.body)
+})
 
 router.get('/accesstoken', async (ctx, next) => {
   try {
