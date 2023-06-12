@@ -35,7 +35,7 @@ function replyEvent(data) {
       <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
       <CreateTime>${Date.now()}</CreateTime>
       <MsgType><![CDATA[text]]></MsgType>
-      <Content><![CDATA[点击事件]]></Content>
+      <Content><![CDATA[事件: ${Event}, ${EventKey}]]></Content>
     </xml>
   `;
 }
