@@ -27,7 +27,7 @@ router.post('/wx', (ctx, next) => {
 })
 
 // 创建菜单
-router.post('/wx.createMenu', async (ctx, next) => {
+router.post('/wx/createMenu', async (ctx, next) => {
   try {
     const data = await createMenu(ctx.request.body);
     if (data.errcode === '0') {
