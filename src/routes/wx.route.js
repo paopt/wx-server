@@ -21,8 +21,8 @@ router.get('/wx', (ctx, next) => {
 });
 
 // 消息处理
-router.post('/wx', (ctx, next) => {
-  const data = parseXml(ctx.request.body)
+router.post('/wx', async (ctx, next) => {
+  const data = await parseXml(ctx.request.body)
   console.log('微信消息：', data);
   ctx.body = ctx.request.body
 })
