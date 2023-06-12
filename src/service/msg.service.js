@@ -1,8 +1,8 @@
 const { parseXml } = require('../util/index')
 
-function replyMsg(msg) {
+async function replyMsg(msg) {
   if (!msg) return '';
-  const data = parseXml(msg);
+  const data = await parseXml(msg);
   console.log('接收消息数据：', data);
   const { MsgType }  = data;
   if (MsgType === 'text') {

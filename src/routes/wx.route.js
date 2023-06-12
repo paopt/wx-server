@@ -24,7 +24,7 @@ router.get('/wx', (ctx, next) => {
 // 消息处理
 router.post('/wx', async (ctx, next) => {
   try {
-    ctx.body = replyMsg(ctx.request.body);
+    ctx.body = await replyMsg(ctx.request.body);
   } catch (e) {
     ctx.body = 'success'
   }
