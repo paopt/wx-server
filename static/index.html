@@ -17,9 +17,7 @@
       const code = params.get('code');
       if (!code) {
         const url = encodeURIComponent(location.href)
-        location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?
-        appid=wx807d86fb6b3d4fd2
-        &redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+        location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx807d86fb6b3d4fd2&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
       } else {
         fetch(`http://www.yaojinfeng.work/wx/getUserInfo?code=${code}`).then(res => {
           return res.json()
