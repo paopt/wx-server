@@ -26,6 +26,7 @@ router.post('/wx', async (ctx, next) => {
   try {
     ctx.body = await replyMsg(ctx.request.body);
   } catch (e) {
+    console.error(e);
     ctx.body = 'success'
   }
 })
