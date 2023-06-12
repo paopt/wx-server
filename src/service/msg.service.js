@@ -30,6 +30,6 @@ function replyEvent(data) {
   return 'success';
 }
 
-export {
+module.exports =  {
   replyMsg
 }
