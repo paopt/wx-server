@@ -28,7 +28,6 @@ router.post('/wx', async (ctx, next) => {
   } catch (e) {
     ctx.body = 'success'
   }
-  ctx.body = replyMsg(ctx.request.body)
 })
 
 // 创建菜单
