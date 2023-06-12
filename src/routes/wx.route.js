@@ -4,6 +4,7 @@ const axios = require('axios');
 const { sha1, parseXml } = require('../util');
 const config = require('../../config/config.test');
 const { createMenu } = require('../service/wx.service');
+const { replyMsg } = require('../service/msg.service');
 
 const router = new Router();
 
@@ -22,9 +23,12 @@ router.get('/wx', (ctx, next) => {
 
 // 消息处理
 router.post('/wx', async (ctx, next) => {
-  const data = await parseXml(ctx.request.body)
-  console.log('微信消息：', data);
-  ctx.body = ctx.request.body
+  try {
+    ctx.body = replyMsg(ctx.request.body);
+  } catch (e) {
+    ctx.body = 'success'
+  }
+  ctx.body = replyMsg(ctx.request.body)
 })
 
 // 创建菜单
