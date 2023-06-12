@@ -63,8 +63,7 @@ async function createMenu(menus) {
   const token = await queryAccessToken();
   const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${token}`;
   const res = await axios.post(url, menus);
-  console.log('token: ', token)
-  console.log('返回结果: ', res)
+  console.log('data: ', res.data)
   return res.data;
 }
 

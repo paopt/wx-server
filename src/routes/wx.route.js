@@ -30,8 +30,7 @@ router.post('/wx', (ctx, next) => {
 router.post('/wx/createMenu', async (ctx, next) => {
   try {
     const data = await createMenu(ctx.request.body);
-    console.log('')
-    if (data.errcode === '0') {
+    if (data.errcode === 0) {
       ctx.body = {
         code: 200,
         msg: '创建成功',
