@@ -27,7 +27,16 @@ function replyText(data) {
 }
 
 function replyEvent(data) {
-  return 'success';
+  const {ToUserName, FromUserName, CreateTime, MsgType, Content, MsgId} = data;
+  rreturn `
+  <xml>
+    <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
+    <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
+    <CreateTime>${Date.now()}</CreateTime>
+    <MsgType>text</MsgType>
+    <Content>点击事件</Content>
+  </xml>
+`;
 }
 
 module.exports =  {
