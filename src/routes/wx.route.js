@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const { sha1, parseXml } = require('../util');
 const config = require('../../config/config.test');
-const { createMenu } = require('../service/wx.service');
+const { createMenu, getUserInfo } = require('../service/wx.service');
 const { replyMsg } = require('../service/msg.service');
 
 const router = new Router();
@@ -53,6 +53,25 @@ router.post('/wx/createMenu', async (ctx, next) => {
       msg: '创建失败'
     }
   }
+})
+
+// 获取用户信息
+router.get('/wx/getUserInfo', async (ctx, next) => {
+  try {
+    const code = ctx.request.query.code;
+    const user = getUserInfo(code)
+    ctx.body = {
+      code: 200,
+      data: user
+    }
+  } catch (error) {
+    ctx.body = {
+      code: 400,
+      msg: '出错了',
+      data: null
+    }
+  }
+  
 })
 
 module.exports = router;
