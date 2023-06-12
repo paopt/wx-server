@@ -29,7 +29,7 @@ function replyText(data) {
 function replyEvent(data) {
   console.log('回复Click事件');
   const {ToUserName, FromUserName, MsgType, Event, EventKey} = data;
-  rreturn `
+  return `
     <xml>
       <ToUserName><![CDATA[${FromUserName}]]></ToUserName>
       <FromUserName><![CDATA[${ToUserName}]]></FromUserName>
