@@ -54,6 +54,18 @@ async function queryAccessToken() {
   }
 }
 
+/**
+ * 创建菜单
+ * @param {*} menus 
+ * @returns 
+ */
+async function createMenu(menus) {
+  const token = await queryAccessToken();
+  const url = `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${token}`;
+  const res = await axios.post(url, menus);
+  return res.data;
+}
+
 module.exports = {
-  queryAccessToken
+  createMenu
 }
