@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const axios = require('axios');
 
-const { sha1 } = require('../util');
+const { sha1, parseXml } = require('../util');
 const config = require('../../config/config.test');
 const { createMenu } = require('../service/wx.service');
 
@@ -22,7 +22,8 @@ router.get('/wx', (ctx, next) => {
 
 // 消息处理
 router.post('/wx', (ctx, next) => {
-  console.log(ctx.request.body)
+  const data = parseXml(ctx.request.body)
+  console.log('微信消息：', data);
   ctx.body = ctx.request.body
 })
 
