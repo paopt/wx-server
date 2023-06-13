@@ -16,6 +16,7 @@
       const params = new URLSearchParams(location.search);
       const code = params.get('code');
       if (!code) {
+        console.log(location.href)
         const url = encodeURIComponent(location.href)
         location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
       } else {
