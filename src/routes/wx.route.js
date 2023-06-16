@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const { sha1, parseXml } = require('../util');
 const config = require('../../config/config.test');
-const { createMenu, getUserInfo } = require('../service/wx.service');
+const { createMenu, getUserInfo, queryTicket} = require('../service/wx.service');
 const { replyMsg } = require('../service/msg.service');
 
 const router = new Router();
@@ -71,7 +71,34 @@ router.get('/wx/getUserInfo', async (ctx, next) => {
       data: null
     }
   }
-  
+})
+
+// 获取jsapi签名信息
+router.get('/wx/jsapi', async (ctx, next) => {
+  try {
+    const url = ctx.request.URL.href;
+    console.log('页面url: ', url)
+    const ticket = await queryTicket();
+    const noncestr = 'hello';
+    const timestamp = Date.now();
+    const str = `jsapi_ticket=${ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`;
+    const signature = sha1(str);
+    ctx.body = {
+      code: 200,
+      msg: 'success',
+      data: {
+        noncestr,
+        timestamp,
+        signature
+      }
+    }
+  } catch (error) {
+    ctx.body = {
+      code: 400,
+      msg: '获取失败',
+      data: null
+    }
+  }
 })
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const axios = require('axios');
 const config = require('../../config/config.test');
 const wx  = require('../model/wx.model');
+const Ticket = require('../model/ticket.model');
 
 /**
  * 从微信服务器获取access_token
@@ -78,7 +79,62 @@ async function getUserInfo(code) {
   return user;
 }
 
+// https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi
+
+/**
+ * 从微信服务器获取jsapi_ticket
+ * @returns 
+ */
+async function getTicket() {
+  const token = await queryAccessToken();
+  const url = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${token}&type=jsapi`;
+  const res = axios.get(url);
+  return res.data;
+}
+
+/**
+ * 查询ticket。数据库中有ticket且没有过期直接返回，否则从微信服务器查询
+ * @returns 
+ */
+async function queryTicket() {
+  const arr = await Ticket.findAll();
+  if (arr.length > 0) {
+    const { ticket, expires_in } = arr[0].dataValues;
+    const now = parseInt(Date.now() / 1000); // 当前秒数
+    // 过期
+    if (expires_in < now) {
+      console.log('过期')
+      const { ticket, expires_in } = await getTicket();
+      // 更新token到数据库
+      const now = parseInt(Date.now() / 1000) + expires_in;
+      await wx.update({
+        ticket,
+        expires_in: now
+      }, {
+        where: {
+          ticket
+        }
+      });
+      return ticket;
+    } else {
+      return ticket;
+    }
+  } else {
+    const { ticket, expires_in } = await getTicket();
+    // 保存token到数据库
+    const now = parseInt(Date.now() / 1000) + expires_in;
+    await wx.create({
+      ticket,
+      expires_in: now
+    });
+    return ticket;
+  }
+}
+
+
+
 module.exports = {
   createMenu,
-  getUserInfo
+  getUserInfo,
+  queryTicket
 }
