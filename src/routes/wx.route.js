@@ -59,7 +59,7 @@ router.post('/wx/createMenu', async (ctx, next) => {
 router.get('/wx/getUserInfo', async (ctx, next) => {
   try {
     const code = ctx.request.query.code;
-    const user = getUserInfo(code)
+    const user = await getUserInfo(code)
     ctx.body = {
       code: 200,
       data: user
