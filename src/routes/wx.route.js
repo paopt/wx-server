@@ -77,6 +77,7 @@ router.get('/wx/getUserInfo', async (ctx, next) => {
 router.get('/wx/jsapi', async (ctx, next) => {
   try {
     const url = ctx.request.query.url;
+    console.log('签名url：', url);
     const ticket = await queryTicket();
     const noncestr = 'hello';
     const timestamp = Date.now();
