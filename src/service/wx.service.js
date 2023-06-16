@@ -68,13 +68,11 @@ async function createMenu(menus) {
 }
 
 async function getUserInfo(code) {
-  const url = `https://api.weixin.qq.com/sns/oauth2/access_token?
-    appid=${config.appID}&secret=${config.appsecret}&code=${code}&grant_type=authorization_code`;
+  const url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${config.appID}&secret=${config.appsecret}&code=${code}&grant_type=authorization_code`;
   const res = await axios.get(url);
   console.log('tokenData: ', res.data)
   const {access_token, openid} = res.data;
-  const res2 = await axios.get(`https://api.weixin.qq.com/sns/userinfo?
-    access_token=${access_token}&openid=${openid}&lang=zh_CN`)
+  const res2 = await axios.get(`https://api.weixin.qq.com/sns/userinfo?access_token=${access_token}&openid=${openid}&lang=zh_CN`)
     const user = res2.data
   console.log('user: ', user)
   return user;
