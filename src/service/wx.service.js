@@ -87,8 +87,10 @@ async function getUserInfo(code) {
  */
 async function getTicket() {
   const token = await queryAccessToken();
+  console.log('token: ', token)
   const url = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${token}&type=jsapi`;
-  const res = axios.get(url);
+  const res = await axios.get(url);
+  console.log('ticket', res.data);
   return res.data;
 }
 

@@ -76,8 +76,7 @@ router.get('/wx/getUserInfo', async (ctx, next) => {
 // 获取jsapi签名信息
 router.get('/wx/jsapi', async (ctx, next) => {
   try {
-    const url = ctx.request.URL.href;
-    console.log('页面url: ', url)
+    const url = ctx.request.query.url;
     const ticket = await queryTicket();
     const noncestr = 'hello';
     const timestamp = Date.now();
