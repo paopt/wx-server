@@ -58,6 +58,7 @@ router.post('/wx/createMenu', async (ctx, next) => {
 // 获取用户信息
 router.get('/wx/getUserInfo', async (ctx, next) => {
   try {
+    console.log(ctx.request.query);
     const code = ctx.request.query.code;
     const user = getUserInfo(code)
     ctx.body = {
