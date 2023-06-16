@@ -109,7 +109,7 @@ async function queryTicket() {
       const { ticket, expires_in } = await getTicket();
       // 更新token到数据库
       const now = parseInt(Date.now() / 1000) + expires_in;
-      await wx.update({
+      await Ticket.update({
         ticket,
         expires_in: now
       }, {
@@ -125,7 +125,7 @@ async function queryTicket() {
     const { ticket, expires_in } = await getTicket();
     // 保存token到数据库
     const now = parseInt(Date.now() / 1000) + expires_in;
-    await wx.create({
+    await Ticket.create({
       ticket,
       expires_in: now
     });
