@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../../config/config.test');
+const config = require('../../config');
 const wx  = require('../model/wx.model');
 const Ticket = require('../model/ticket.model');
 

@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const axios = require('axios');
 
 const { sha1, parseXml } = require('../util');
-const config = require('../../config/config.test');
+const config = require('../../config');
 const { createMenu, getUserInfo, queryTicket} = require('../service/wx.service');
 const { replyMsg } = require('../service/msg.service');
 
