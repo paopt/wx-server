@@ -21,11 +21,13 @@
         const url = encodeURIComponent(location.href)
         location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
       } else {
-        fetch(`http://www.yaojinfeng.work/wx/getUserInfo?code=${code}`).then(res => {
-          return res.json()
-        }).then(data => {
-          console.log(data)
-        })
+        const newUrl = location.href.replace(/(\?|&)*(code|state)=([^&=?#]+)/ig, '')
+    location.replace(newUrl)
+        // fetch(`http://www.yaojinfeng.work/wx/getUserInfo?code=${code}`).then(res => {
+        //   return res.json()
+        // }).then(data => {
+        //   console.log(data)
+        // })
       }
     });
     
@@ -38,7 +40,7 @@
         const { noncestr, timestamp, signature } = res.data;
         // jssdk
         wx.config({
-          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
           appId: 'wx4ef9c412687ad885', // 必填，公众号的唯一标识
           timestamp: timestamp, // 必填，生成签名的时间戳
           nonceStr: noncestr, // 必填，生成签名的随机串
